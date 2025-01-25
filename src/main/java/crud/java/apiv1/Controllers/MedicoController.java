@@ -7,6 +7,8 @@ import crud.java.apiv1.Entities.MedicosEntity;
 import crud.java.apiv1.Repository.MedicosRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,11 +30,11 @@ public class MedicoController {
 
     }
 
-    // Lista Medicos
+    // Lista Medicos // Listando fazendo a paginação
     @GetMapping
-    public List<DtoListagemMedicos> listarMedicos() {
+    public Page<DtoListagemMedicos> listarMedicos(Pageable paginacao) {
 
-        return repository.findAll().stream().map(DtoListagemMedicos::new).toList();
+        return repository.findAll(paginacao).map(DtoListagemMedicos::new);
     }
 
 
